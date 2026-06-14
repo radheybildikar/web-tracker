@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebTrace</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 280px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      font-size: 13px;
+      background: #0d0f14;
+      color: #e8eaf0;
+    }
+
+    .header {
+      background: #161a22;
+      border-bottom: 1px solid #2a3040;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo { font-size: 16px; font-weight: 700; color: #6c8eff; }
+
+    .content { padding: 16px; }
+
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      display: inline-block;
+      margin-right: 6px;
+      box-shadow: 0 0 6px rgba(74,222,128,0.5);
+    }
+    .status-dot.off { background: #6b7280; box-shadow: none; }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #161a22;
+      border: 1px solid #2a3040;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .status-text { display: flex; align-items: center; font-weight: 500; }
+
+    label { display: block; font-size: 11px; color: #6b7280; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+    input {
+      width: 100%;
+      background: #0d0f14;
+      border: 1px solid #2a3040;
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: #e8eaf0;
+      font-size: 13px;
+      outline: none;
+      margin-bottom: 10px;
+    }
+    input:focus { border-color: #6c8eff; }
+
+    button {
+      width: 100%;
+      padding: 9px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:hover { opacity: 0.85; }
+    .btn-primary { background: #6c8eff; color: #0d0f14; }
+    .btn-ghost { background: transparent; border: 1px solid #2a3040; color: #9ca3af; margin-top: 8px; }
+
+    .error { color: #f87171; font-size: 12px; margin-bottom: 8px; }
+    .user-info { color: #9ca3af; font-size: 12px; }
+    .dash-link { color: #6c8eff; font-size: 12px; text-decoration: none; display: block; text-align: center; margin-top: 10px; }
+    .dash-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">⬡ WebTrace</span>
+  </div>
+
+  <div class="content">
+    <!-- Status row -->
+    <div class="status-row">
+      <div class="status-text" id="statusText">
+        <span class="status-dot off" id="statusDot"></span>
+        <span id="statusLabel">Not connected</span>
+      </div>
+      <span class="user-info" id="usernameDisplay"></span>
+    </div>
+
+    <!-- Login form (shown when not logged in) -->
+    <div id="loginForm">
+      <div><label>Email</label><input type="email" id="emailInput" placeholder="you@example.com" /></div>
+      <div><label>Password</label><input type="password" id="passInput" placeholder="••••••••" /></div>
+      <div class="error" id="errorMsg"></div>
+      <button class="btn-primary" id="loginBtn">Sign in to sync</button>
+    </div>
+
+    <!-- Logged in state -->
+    <div id="loggedIn" style="display:none">
+      <div style="color:#4ade80; font-size:12px; margin-bottom:10px;">✓ Tracking your browsing activity</div>
+      <a class="dash-link" href="http://localhost:3000" target="_blank">Open dashboard →</a>
+      <button class="btn-ghost" id="logoutBtn">Sign out</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
